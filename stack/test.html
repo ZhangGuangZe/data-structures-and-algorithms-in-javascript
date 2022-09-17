@@ -1,0 +1,31 @@
+<script type="module">
+  // import { ArrayBasedStack } from './ArrayBasedStack.js';
+  // const stack = new ArrayBasedStack();
+
+  // import { DynamicArrayStack } from './DynamicArrayBasedStack.js';
+  // const stack = new DynamicArrayStack();
+
+  import { LinkedListBasedStack } from './LinkedListBasedStack.js';
+  const stack = new LinkedListBasedStack();
+
+  console.log(stack.isEmpty());
+  stack.push(0);
+  console.log(stack.peek());
+  stack.push(1);
+  // console.log(stack.isFull());
+  console.log(stack.peek());
+  console.log(stack.isEmpty());
+  stack.push(2);
+  stack.push(3);
+  stack.push(4);
+  console.log(stack.peek());
+  console.log(stack.isEmpty());
+  console.log(stack.pop());
+  console.log(stack.peek());
+  console.log(stack.pop());
+  console.log(stack.peek());
+  console.log(stack.pop());
+  console.log(stack.pop());
+  console.log(stack.pop());
+  console.log(stack.pop());
+</script>

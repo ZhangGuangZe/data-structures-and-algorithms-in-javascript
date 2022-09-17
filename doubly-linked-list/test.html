@@ -1,0 +1,146 @@
+<script type="module">
+  import { DoublyLinkedList } from './DoublyLinkedList.js';
+  import { Node } from './Node.js';
+
+  const doublyLinkedList = new DoublyLinkedList();
+  // doublyLinkedList.prepend(3);
+  // doublyLinkedList.prepend(2);
+  // doublyLinkedList.prepend(1);
+  // doublyLinkedList.prepend(0);
+
+  // doublyLinkedList.append(1);
+  // doublyLinkedList.append(2);
+  // doublyLinkedList.append(2);
+  // doublyLinkedList.append(3);
+
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  
+  // doublyLinkedList.remove(2);
+
+  // console.log(doublyLinkedList.insert(null, 1));
+  // console.log(doublyLinkedList.insert(null, 4));
+  // console.log(doublyLinkedList.insert(1, 0));
+  // console.log(doublyLinkedList.insert(4, 3));
+  // console.log(doublyLinkedList.insert(3, 2));
+  // console.log(doublyLinkedList.insert(null, 5));
+  // console.log(doublyLinkedList.insert(6, 5));
+
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.remove(0);
+  // doublyLinkedList.remove(1);
+  // doublyLinkedList.remove(2);
+  // doublyLinkedList.remove(3);
+  // doublyLinkedList.remove(0);
+  // doublyLinkedList.remove(5);
+
+  // doublyLinkedList.prepend(3);
+  // doublyLinkedList.prepend(2);
+  // doublyLinkedList.prepend(1);
+
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+
+  // doublyLinkedList.append(1);
+  // doublyLinkedList.append(2);
+  // doublyLinkedList.append(3);
+
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+
+  // doublyLinkedList.prepend(3);
+  // const node1 = {
+  //   data: 3,
+  //   next: doublyLinkedList.tail,
+  //   prev: doublyLinkedList.head
+  // };
+  // const node2 = new Node(1);
+  // doublyLinkedList.insert(node1, node2);
+  // const node3 = {
+  //   data: 1,
+  //   next: doublyLinkedList.head.next,
+  //   prev: doublyLinkedList.head
+  // };
+  // const node4 = new Node(0);
+  // doublyLinkedList.insert(node3, node4);
+  // const node5 = {
+  //   data: 3,
+  //   next: doublyLinkedList.tail,
+  //   prev: doublyLinkedList.head.next.next
+  // };
+  // const node6 = new Node(2);
+  // doublyLinkedList.insert(node5, node6);
+
+  // const node7 = {
+  //   data: 3,
+  //   next: doublyLinkedList.tail,
+  //   prev: doublyLinkedList.tail.prev.prev
+  // }
+  // doublyLinkedList.remove(node7);
+  // const node8 = {
+  //   data: 1,
+  //   next: doublyLinkedList.tail.prev,
+  //   prev: doublyLinkedList.head.next
+  // }
+  // doublyLinkedList.remove(node8);
+  // const node9 = {
+  //   data: 2,
+  //   next: doublyLinkedList.tail,
+  //   prev: doublyLinkedList.head.next
+  // }
+  // doublyLinkedList.remove(node9);
+  // const node10 = {
+  //   data: 2,
+  //   next: doublyLinkedList.tail,
+  //   prev: doublyLinkedList.head
+  // }
+  // doublyLinkedList.remove(node10);
+  // console.log(doublyLinkedList);
+
+  // doublyLinkedList.prepend(1);
+  // doublyLinkedList.prepend(0);
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+  // doublyLinkedList.removeHead();
+
+  // doublyLinkedList.append(1);
+  // doublyLinkedList.append(2);
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+  // doublyLinkedList.removeTail();
+
+  doublyLinkedList.prepend(1);
+  doublyLinkedList.append(3);
+  doublyLinkedList.append(5);
+  doublyLinkedList.append(7);
+  doublyLinkedList.insert(1, 2);
+  doublyLinkedList.insert(3, 4);
+  doublyLinkedList.insert(5, 6);
+  const node = doublyLinkedList.get(4);
+  doublyLinkedList.remove(node)
+
+  // const node = new Node(0);
+  // doublyLinkedList.insertBefore(doublyLinkedList.tail, node);
+  // doublyLinkedList.append(2);
+  // const node2 = new Node(1);
+  // doublyLinkedList.insertBefore(doublyLinkedList.tail.prev, node2);
+
+  // doublyLinkedList.remove(node2)
+  // doublyLinkedList.remove(node)
+  // doublyLinkedList.remove(doublyLinkedList.head.next)
+  console.log(doublyLinkedList.toString());
+</script>

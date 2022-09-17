@@ -1,0 +1,84 @@
+<script type="module">
+  // import { ArrayBasedQueue } from './ArrayBasedQueue.js';
+  
+  // const queue = new ArrayBasedQueue();
+  // queue.enqueue(1);
+  // console.log(queue.toString());
+  // queue.enqueue(2);
+  // console.log(queue.toString());
+  // console.log(queue.enqueue(3));
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+
+  // import { LinkedListBasedQueue } from './LinkedListBasedQueue.js';
+  // const queue = new LinkedListBasedQueue();
+  // queue.enqueue(1);
+  // console.log(queue.toString());
+  // queue.enqueue(2);
+  // console.log(queue.toString());
+  // queue.enqueue(3);
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+  // console.log(queue.toString());
+  // console.log(queue.dequeue());
+
+  // import CircularQueue from './ArrayCircularQueue.js';
+  import CircularQueue from './LinkedListCircularQueue.js';
+  const queue = new CircularQueue();
+  queue.enqueue(1);
+  queue.enqueue(2);
+  queue.enqueue(3);
+  queue.enqueue(4);
+  queue.enqueue(5);
+
+  queue.dequeue();
+  queue.dequeue();
+  queue.dequeue();
+  queue.dequeue();
+  queue.dequeue();
+  queue.dequeue();
+  
+  queue.enqueue(5);
+  queue.enqueue(6);
+  queue.enqueue(7);
+  queue.enqueue(8);
+  queue.enqueue(9);
+
+  // import Deque from './DoublyEndedQueue.js';
+  // const deque = new Deque();
+  // deque.push(1);
+  // deque.push(2);
+  // deque.pop();
+  // deque.pop();
+  // deque.pop();
+
+  // deque.unshift(2);
+  // deque.unshift(1);
+  // deque.shift();
+  // deque.shift();
+  // deque.shift();
+
+  // deque.unshift(2);
+  // deque.push(3);
+  // console.log(deque.peekFirst());
+  // console.log(deque.peekLast());
+  // deque.unshift(1);
+  // deque.push(4);
+  // console.log(deque.peekFirst());
+  // console.log(deque.peekLast());
+  // deque.shift();
+  // deque.pop();
+  // console.log(deque.peekFirst());
+  // console.log(deque.peekLast());
+  // deque.shift();
+  // deque.pop();
+
+</script>
