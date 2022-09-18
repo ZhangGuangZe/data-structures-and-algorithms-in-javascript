@@ -57,6 +57,7 @@ export default class Heap {
   /**
    * 建堆
    * @param {Array} a 未排序数组
+   * @param {number} n 堆的大小
    */
   build(a, n) {
     for (let i = Math.floor(n / 2); i >= 1; i--) {
@@ -122,6 +123,7 @@ export default class Heap {
    * 自上而下堆化（原地）
    * @param {Array} a 数组
    * @param {number} i 节点索引
+   * @param {number} n 堆的大小
    */
   heapify(a, i, n) {
     while (2 * i <= n) {
