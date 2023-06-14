@@ -1,11 +1,11 @@
 export default class DisjointSet {
   constructor(n) {
     this.parents = new Array(n); // 存储每个集合的根节点
-    this.ranks = new Array(n); // 用于记录每个集合根节点的秩（高度），从而进行按秩合并
+    this.ranks = new Array(n); // 用于记录每棵树的秩（深度），从而进行按秩合并
     this.size = n; // 当前集合的数量
 
     for (let i = 0; i < n; i++) {
-      this.parents[i] = i; // 每个元素自成一个集合，将每个元素的根节点初始化为自身
+      this.parents[i] = i; // 每个元素自成一个集合，将每个集合的根节点初始化为自身
       this.ranks[i] = 0; // 将每棵树的深度初始化为 0
     }
   }
