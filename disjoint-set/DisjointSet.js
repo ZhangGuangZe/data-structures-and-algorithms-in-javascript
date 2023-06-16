@@ -15,8 +15,10 @@ export default class DisjointSet {
    * @returns
    */
   find(x) {
-    if (x === this.parents[x]) return x;
-    this.parents[x] = this.find(this.parents[x]);
+    if (this.parents[x] !== x) {
+      this.parents[x] = this.find(this.parents[x]);
+    }
+    return this.parents[x];
     /* let root = x;
     while (root !== this.parents[root]) {
       root = this.parents[root]; // 沿着查找路径向上查找根节点
