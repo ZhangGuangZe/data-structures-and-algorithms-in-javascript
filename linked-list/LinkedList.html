@@ -1,101 +1,101 @@
 <script>
-    class Node {
-        constructor(val) {
-            this.val = val;
-            this.next = null;
-        }
+  class Node {
+    constructor(val) {
+      this.val = val;
+      this.next = null;
+    }
+  }
+
+  class LinkedList {
+    constructor() {
+      this.head = new Node('head')
     }
 
-    class LinkedList {
-        constructor() {
-            this.head = new Node('head')
-        }
-
-        findByValue(val) {
-            let current = this.head;
-            while (current !== null && current.val !== val) {
-                current = current.next;
-            }
-            return current === null ? -1 : current;
-        }
-
-        append(val) {
-            let node = new Node(val);
-            let current = this.head;
-            while (current.next) {
-                current = current.next;
-            }
-            current.next = node;
-        }
-
-        insert(prev, val) {
-            let current = this.findByValue(prev);
-            let node = new Node(val);
-            if (current === -1) {
-                console.log('插入位置不存在')
-                return;
-            }
-            node.next = current.next;
-            current.next = node;
-        }
-
-        findPrev(val) {
-            let current = this.head;
-            while (current.next !== null && current.next.val !== val) {
-                current = current.next;
-            }
-            return current.next === null ? -1 : current;
-        }
-
-        remove(val) {
-            let prev = this.findPrev(val);
-            if (prev === -1) {
-                console.log('未找到元素');
-                return;
-            }
-            prev.next = prev.next.next;
-        }
-
-        reverse() {
-            let prev = null;
-            let curr = this.head;
-            while (curr !== null) {
-                let next = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = next;
-            }
-            return prev;
-        }
-
-        hasCycle() {
-            let slow = this.head;
-            let fast = this.head;
-            while (fast !== null && fast.next !== null) {
-                slow = slow.next;
-                fast = fast.next.next;
-                if (slow === fast) return true;
-            }
-            return false;
-        }
-
-        middleNode() {
-            let slow = this.head;
-            let fast = this.head;
-            while (fast !== null && fast.next !== null) {
-                slow = slow.next;
-                fast = fast.next.next
-            }
-            return slow;
-        }
+    findByValue(val) {
+      let current = this.head;
+      while (current !== null && current.val !== val) {
+        current = current.next;
+      }
+      return current === null ? -1 : current;
     }
 
-    let list = new LinkedList();
-    list.append(1);
-    list.append(2);
-    list.append(4);
-    list.append(5);
-    list.insert('head', 0);
-    list.insert(2, 3);
-    list.insert(5, 6);
+    append(val) {
+      let node = new Node(val);
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = node;
+    }
+
+    insert(prev, val) {
+      let current = this.findByValue(prev);
+      let node = new Node(val);
+      if (current === -1) {
+        console.log('插入位置不存在')
+        return;
+      }
+      node.next = current.next;
+      current.next = node;
+    }
+
+    findPrev(val) {
+      let current = this.head;
+      while (current.next !== null && current.next.val !== val) {
+        current = current.next;
+      }
+      return current.next === null ? -1 : current;
+    }
+
+    remove(val) {
+      let prev = this.findPrev(val);
+      if (prev === -1) {
+        console.log('未找到元素');
+        return;
+      }
+      prev.next = prev.next.next;
+    }
+
+    reverse() {
+      let prev = null;
+      let curr = this.head;
+      while (curr !== null) {
+        let next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+      }
+      return prev;
+    }
+
+    hasCycle() {
+      let slow = this.head;
+      let fast = this.head;
+      while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow === fast) return true;
+      }
+      return false;
+    }
+
+    middleNode() {
+        let slow = this.head;
+        let fast = this.head;
+        while (fast !== null && fast.next !== null) {
+          slow = slow.next;
+          fast = fast.next.next
+        }
+        return slow;
+      }
+  }
+
+  let list = new LinkedList();
+  list.append(1);
+  list.append(2);
+  list.append(4);
+  list.append(5);
+  list.insert('head', 0);
+  list.insert(2, 3);
+  list.insert(5, 6);
 </script>
