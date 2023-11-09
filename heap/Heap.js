@@ -1,7 +1,11 @@
 export default class Heap {
-  constructor() {
+  constructor(comparator = Heap.comparator) {
     this.container = [];
     this.size = 0;
+    this.comparator = comparator;
+  }
+  static comparator(a, b) {
+    return a - b;
   }
   /**
    * 获取指定节点左子节点
@@ -98,7 +102,7 @@ export default class Heap {
    */
   heapifyUp(i) {
     let pos = i || this.container.length - 1;
-    while (pos > 1 && this.container[this.getParentIndex(pos)] < this.container[pos]) {
+    while (pos > 1 && this.comparator(this.container[this.getParentIndex(pos)], this.container[pos]) > 0) {
       this.swap(this.container, pos, this.getParentIndex(pos));
       pos = this.getParentIndex(pos);
     }
@@ -112,8 +116,8 @@ export default class Heap {
       let pos = i;
       const left = this.getLeftIndex(i);
       const right = this.getRightIndex(i);
-      if (left <= this.size && this.container[i] < this.container[left]) pos = left;
-      if (right <= this.size && this.container[pos] < this.container[right]) pos = right;
+      if (left <= this.size && this.comparator(this.container[i], this.container[left]) > 0) pos = left;
+      if (right <= this.size && this.comparator(this.container[pos], this.container[right] > 0)) pos = right;
       if (pos === i) break;
       this.swap(this.container, i, pos);
       i = pos;
@@ -130,8 +134,8 @@ export default class Heap {
       let pos = i;
       const left = this.getLeftIndex(i);
       const right = this.getRightIndex(i);
-      if (left <= n && a[i] < a[left]) pos = left;
-      if (right <= n && a[pos] < a[right]) pos = right;
+      if (left <= n &&  this.comparator(a[i], a[left]) > 0) pos = left;
+      if (right <= n &&  this.comparator(a[pos], a[right]) > 0) pos = right;
       if (pos === i) break;
       this.swap(a, i, pos);
       i = pos;
