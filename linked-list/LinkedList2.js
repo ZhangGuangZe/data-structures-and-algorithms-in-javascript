@@ -5,142 +5,155 @@ export default class LinkedList {
     this.head = new Node('dummy');
     this.size = 0;
   }
+
   /**
    * 查找任意位置的节点
    *
    * @param {*} index
-   * @returns data
+   * @returns Node
    * @memberof LinkedList
    */
   get(index) {
     if (index < 0 || index >= this.size) return -1;
-    let curr = this.head;
-    while (index-- >= 0) {
-      curr = curr.next;
+
+    let curNode = this.head.next;
+    for (let i = 0; i < index; i++) {
+      curNode = curNode.next;
     }
-    return curr.data;
+
+    return curNode;
   }
+
   /**
-   * 查找指定节点
+   * 查找值等于指定值的节点
    *
-   * @param {*} data
+   * @param {*} val
    * @returns index
    * @memberof LinkedList
    */
-  find(data) {
-    let curr = this.head.next;
+  indexOf(val) {
     let i = 0;
-    while (curr) {
-      if (curr.data === data) return i;
-      curr = curr.next;
+    let curNode = this.head.next;
+
+    while (curNode) {
+      if (curNode.val === val) return i;
+      curNode = curNode.next;
       i++;
     }
+
     return -1;
   }
-  findByValue(key) {
-    let curr = this.head.next;
-    while (curr) {
-      if (curr.data.key === key) return curr;
-      curr = curr.next;
-    }
-    return null;
-  }
+
   /**
-   * 链表头部添加节点
+   * 从链表头部插入节点
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  prepend(data) {
-    this.insert(0, data);
+  prepend(val) {
+    this.insertAt(0, val);
   }
+
   /**
-   * 链表尾部添加节点
+   * 从链表尾部插入节点
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  append(data) {
-    this.insert(this.size, data);
+  append(val) {
+    this.insertAt(this.size, val);
   }
+
   /**
-   * 任意位置插入
+   * 任意位置插入节点
    *
    * @param {*} index
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  insert(index, data) {
+  insertAt(index, val) {
     if (index < 0 || index > this.size) return false;
-    const node = new Node(data);
-    let curr = this.head;
-    while (index-- > 0) {
-      curr = curr.next;
+
+    let curNode = this.head;
+    for (let i = 0; i < index; i++) {
+      curNode = curNode.next;
     }
-    node.next = curr.next;
-    curr.next = node;
+
+    const newNode = new Node(val);
+    newNode.next = curNode.next;
+    curNode.next = newNode;
     this.size++;
+
     return true;
   }
+
   /**
    * 删除链表头节点
    *
    * @memberof LinkedList
    */
   removeHead() {
-    this.remove(0);
+    return this.removeAt(0);
   }
+
   /**
    * 删除链表尾节点
    *
-   * @returns
    * @memberof LinkedList
    */
   removeTail() {
-    this.remove(this.size - 1);
+    return this.removeAt(this.size - 1);
   }
+
   /**
    * 删除任意位置节点
    *
    * @param {*} index 节点位置
    * @memberof LinkedList
    */
-  remove(index) {
+  removeAt(index) {
     if (index < 0 || index >= this.size) return false;
-    let curr = this.head;
-    while (index-- > 0) {
-      curr = curr.next;
+
+    let curNode = this.head;
+    for (let i = 0; i < index; i++) {
+      curNode = curNode.next;
     }
-    curr.next = curr.next.next;
+    curNode.next = curNode.next.next;
     this.size--;
+
     return true;
   }
+
   /**
    * 删除值等于指定值节点
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  removeVal(data) {
+  removeByVal(val) {
+    if (this.size === 0) return false;
+
     let isDeleted = false;
-    let curr = this.head;
-    while (curr.next) {
-      if (curr.next.data === data) {
-        curr.next = curr.next.next;
+    let curNode = this.head;
+    while (curNode.next) {
+      if (curNode.next.val === val) {
+        curNode.next = curNode.next.next;
         this.size--;
         isDeleted = true;
       } else {
-        curr = curr.next;
+        curNode = curNode.next;
       }
     }
+
     return isDeleted;
   }
+
   toString() {
-    let curr = this.head.next;
+    let curNode = this.head.next;
     let str = 'head -> ';
-    while (curr) {
-      str += curr.data + ' -> ';
-      curr = curr.next;
+    while (curNode) {
+      str += curNode.val + ' -> ';
+      curNode = curNode.next;
     }
     str += 'null';
     return str;

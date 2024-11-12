@@ -1,197 +1,217 @@
-import { Node } from './Node.js'
+import Node from './Node.js'
 
-export class LinkedList {
+export default class LinkedList {
   constructor() {
     this.head = null;
     this.size = 0;
   }
+
   /**
    * 查找任意位置的节点
    *
    * @param {*} index
-   * @returns data
+   * @returns Node
    * @memberof LinkedList
    */
   get(index) {
     if (index < 0 || index >= this.size) return -1;
-    let curr = this.head;
-    while (index-- > 0) {
-      curr = curr.next;
+
+    let curNode = this.head;
+    for (let i = 0; i < index; i++) {
+      curNode = curNode.next;
     }
-    return curr.data;
+
+    return curNode;
   }
+
   /**
-   * 查找指定节点
+   * 查找值等于指定值的节点
    *
-   * @param {*} data
+   * @param {*} val
    * @returns index
    * @memberof LinkedList
    */
-  find(data) {
-    let curr = this.head;
+  indexOf(val) {
     let i = 0;
-    while (curr) {
-      if (curr.data === data) return i;
-      curr = curr.next;
+    let curNode = this.head;
+
+    while (curNode) {
+      if (curNode.val === val) return i;
+      curNode = curNode.next;
       i++;
     }
+
     return -1;
   }
+
   /**
-   * 链表头部添加节点
+   * 从链表头部插入节点
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  prepend(data) {
-    const node = new Node(data);
+  prepend(val) {
+    this.insertAt(0, val);
+
+    /* const newNode = new Node(val);
     if (!this.head) {
-      this.head = node;
+      this.head = newNode;
     } else {
-      node.next = this.head;
-      this.head = node;
+      newNode.next = this.head;
+      this.head = newNode;
     }
-    this.size++;
+    this.size++; */
   }
+
   /**
-   * 链表尾部添加节点
+   * 从链表尾部插入节点
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  append(data) {
-    const node = new Node(data);
+  append(val) {
+    this.insertAt(this.size, val);
+
+    /* const newNode = new Node(val);
     if (!this.head) {
-      this.head = node;
+      this.head = newNode;
     } else {
-      let curr = this.head;
-      while (curr.next) {
-        curr = curr.next;
+      let curNode = this.head;
+      while (curNode.next) {
+        curNode = curNode.next;
       }
-      curr.next = node;
+      curNode.next = newNode;
     }
-    this.size++;
+    this.size++; */
   }
+
   /**
-   * 任意位置插入
+   * 任意位置插入节点
    *
    * @param {*} index
-   * @param {*} data
+   * @param {*} val
    * @memberof LinkedList
    */
-  insert(index, data) {
+  insertAt(index, val) {
     if (index < 0 || index > this.size) return false;
-    const node = new Node(data);
-    let curr = this.head;
+
+    const newNode = new Node(val);
     if (index === 0) { // 链表头部插入
-      node.next = curr;
-      this.head = node;
+      newNode.next = this.head;
+      this.head = newNode;
     } else { // 其他位置插入
-      let prev;
-      while (index-- > 0) {
-        prev = curr;
-        curr = curr.next;
+      let curNode = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        curNode = curNode.next;
       }
-      node.next = curr;
-      prev.next = node;
+      newNode.next = curNode.next;
+      curNode.next = newNode;
     }
     this.size++;
+
     return true;
   }
-  
-  /**
-   * 指定节点后插入节点
-   *
-   * @param {*} target
-   * @param {*} data
-   * @memberof LinkedList
-   */
-  /*insert(target, data) {
-    const node = new Node(data);
-    if (target === null) {
-      node.next = this.head;
-      this.head = node;
-    } else {
-      let curr = this.head;
-      while (curr && curr.data !== target) {
-        curr = curr.next;
-      }
-      if (curr) {
-        node.next = curr.next;
-        curr.next = node;
-      }
-    }
-  }*/
+
   /**
    * 删除链表头节点
    *
    * @memberof LinkedList
    */
-   removeHead() {
-    if (!this.head) return false;
+  removeHead() {
+    return this.removeAt(0);
+
+    /* if (!this.head) return false;
     this.head = this.head.next;
     this.size--;
-    return true;
+    return true; */
   }
+
   /**
    * 删除链表尾节点
    *
-   * @returns
    * @memberof LinkedList
    */
   removeTail() {
-    if (!this.head) return false; // 空链表
+    return this.removeAt(this.size - 1);
+
+    /* if (!this.head) return false; // 空链表
     if (!this.head.next) { // 链表只有一个节点
       this.head = null;
     } else { // 链表有很多节点
-      let curr = this.head;
-      while (curr.next) {
-        if (curr.next.next) {
-          curr = curr.next;
+      let curNode = this.head;
+      while (curNode.next) {
+        if (curNode.next.next) {
+          curNode = curNode.next;
         } else {
-          curr.next = null;
+          curNode.next = null;
         }
       }
     }
     this.size--;
-    return true;
+    return true; */
   }
+
   /**
-   * 删除指定节点
+   * 删除任意位置节点
    *
-   * @param {*} data
+   * @param {*} index
    * @memberof LinkedList
    */
-  remove(data) {
-    if (!this.head) return false;
+  removeAt(index) {
+    if (index < 0 || index >= this.size) return false;
+
+    if (index === 0) { // 删除头节点
+      this.head = this.head.next;
+    } else { // 删除其他节点
+      let curNode = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        curNode = curNode.next;
+      }
+      curNode.next = curNode.next.next;
+    }
+    this.size--;
+
+    return true;
+  }
+
+  /**
+   * 删除值等于指定值的节点
+   *
+   * @param {*} val
+   * @memberof LinkedList
+   */
+  removeByVal(val) {
+    if (this.size === 0) return false;
+
     let isDeleted = false;
     // 删除头节点
-    while (this.head && this.head.data === data) {
-      isDeleted = true;
+    while (this.head && this.head.val === val) {
       this.head = this.head.next;
       this.size--;
+      isDeleted = true;
     }
+
     // 删除其他节点
-    let curr = this.head;
-    if (curr) {
-      while (curr.next) {
-        if (curr.next.data === data) {
-          isDeleted = true;
-          curr.next = curr.next.next;
-          this.size--;
-        } else {
-          curr = curr.next;
-        }
+    let curNode = this.head;
+    while (curNode.next) {
+      if (curNode.next.val === val) {
+        curNode.next = curNode.next.next;
+        this.size--;
+        isDeleted = true;
+      } else {
+        curNode = curNode.next;
       }
     }
+
     return isDeleted;
   }
+
   toString() {
-    let curr = this.head;
+    let curNode = this.head;
     let str = 'head -> ';
-    while (curr) {
-      str += curr.data + ' -> ';
-      curr = curr.next;
+    while (curNode) {
+      str += curNode.val + ' -> ';
+      curNode = curNode.next;
     }
     str += 'null';
     return str;
