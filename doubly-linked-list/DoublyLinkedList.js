@@ -1,305 +1,299 @@
-import { Node } from './Node.js';
+import Node from './Node.js';
 
-export class DoublyLinkedList {
+export default class DoublyLinkedList {
   constructor() {
-    this.head = new Node('dummyHead');
-    this.tail = new Node('dummyTail');
-    this.head.next = this.tail;
-    this.tail.prev = this.head;
+    this.head = null;
+    this.tail = null;
     this.size = 0;
   }
+
   /**
-   * 获取当前位置节点
+   * 获取链表指定位置节点
    *
-   * @param {*} index 当前位置
+   * @param {*} index 节点位置
+   * @returns Node
    * @memberof DoublyLinkedList
    */
   get(index) {
     if (index < 0 || index >= this.size) return -1;
-    let curr = this.head;
-    if (index + 1 < this.size - index) {
-      for (let i = 0; i < index + 1; i++) {
-        curr = curr.next;
+
+    let curNode;
+    if (index < this.size - index) {
+      curNode = this.head;
+      for (let i = 0; i < index; i++) {
+        curNode = curNode.next;
       }
     } else {
-      curr = this.tail;
-      for (let i = 0; i < this.size - index; i++) {
-        curr = curr.prev;
+      curNode = this.tail;
+      for (let i = 0; i < this.size - index - 1; i++) {
+        curNode = curNode.prev;
       }
     }
-    return curr;
+    return curNode;
   }
+
+  /**
+   * 查找值等于指定值的节点
+   *
+   * @param {*} val
+   * @returns index
+   * @memberof LinkedList
+   */
+  indexOf(val) {
+    let i = 0;
+    let curNode = this.head;
+
+    while (curNode) {
+      if (curNode.val === val) return i;
+      curNode = curNode.next;
+      i++;
+    }
+
+    return -1;
+  }
+
   /**
    * 链表头部插入
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof DoublyLinkedList
    */
-  prepend(data) {
-    this.insert(0, data);
-
-    // const node = new Node(data);
-    // const successor = this.head.next;
-    // node.next = this.head.next;
-    // this.head.next = node;
-    // successor.prev = node;
-    // node.prev = this.head;
-    // this.size++;
-
-    // const node = new Node(data);
-    // if (!this.head) {
-    //   this.head = node;
-    //   this.tail = node;
-    // } else {
-    //   node.next = this.head;
-    //   this.head.prev = node;
-    //   this.head = node;
-    // }
+  prepend(val) {
+    this.insertAt(0, val);
   }
+
   /**
    * 链表尾部插入
    *
-   * @param {*} data
+   * @param {*} val
    * @memberof DoublyLinkedList
    */
-  append(data) {
-    this.insert(this.size, data);
-
-    // const node = new Node(data);
-    // const precursor = this.tail.prev;
-    // node.next = this.tail;
-    // precursor.next = node;
-    // this.tail.prev = node;
-    // node.prev = precursor;
-    // this.size++;
-
-    // const node = new Node(data);
-    // if (!this.head) {
-    //   this.head = node;
-    //   this.tail = node;
-    // } else {
-    //   this.tail.next = node;
-    //   node.prev = this.tail;
-    //   this.tail = node;
-    // }
-    // this.count++;
+  append(val) {
+    this.insertAt(this.size, val);
   }
+
   /**
    * 在任意位置插入节点
    *
    * @param {Number} index 插入位置
-   * @param {*} data 节点值
+   * @param {*} val 节点值
    * @memberof DoublyLinkedList
    */
-  insert(index, data) {
+  insertAt(index, val) {
     if (index < 0 || index > this.size) return false;
-    let precursor;
-    let successor;
+
+    const newNode = new Node(val);
     if (index === 0) {
-      precursor = this.head;
-      successor = this.head.next;
-    } else if (index === this.size) {
-      precursor = this.tail.prev;
-      successor = this.tail;
-    } else {
-      if (index < this.size - index) {
-        precursor = this.head;
-        for (let i = 0; i < index; i++) {
-          precursor = precursor.next;
-        }
-        successor = precursor.next;
+      if (this.size === 0) {
+        this.head = newNode;
+        this.tail = newNode;
       } else {
-        successor = this.tail;
-        for (let i = 0; i < this.size - index; i++) {
-          successor = successor.prev;
-        }
-        precursor = successor.prev;
+        newNode.next = this.head;
+        this.head.prev = newNode;
+        this.head = newNode;
       }
+    } else if (index === this.size) {
+      const newNode = new Node(val);
+      if (this.size === 0) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        this.tail.next = newNode;
+        newNode.prev = this.tail;
+        this.tail = newNode;
+      }
+    } else {
+      let curNode;
+      if (index < this.size - index) {
+        curNode = this.head;
+        for (let i = 0; i < index; i++) {
+          curNode = curNode.next;
+        }
+      } else {
+        curNode = this.tail;
+        for (let i = 0; i < this.size - index - 1; i++) {
+          curNode = curNode.prev;
+        }
+      }
+      newNode.next = curNode;
+      curNode.prev.next = newNode;
+      newNode.prev = curNode.prev;
+      curNode.prev = newNode;
     }
-    const node = new Node(data);
-    node.next = successor;
-    precursor.next = node;
-    successor.prev = node;
-    node.prev = precursor;
     this.size++;
+
     return true;
   }
+
   /**
    * 指定节点前插入节点
    *
-   * @param {Node} node1 目标节点
-   * @param {Node} node2 插入节点
+   * @param {Node} targetNode 目标节点
+   * @param {Node} newNode 插入节点
    * @memberof DoublyLinkedList
    */
-  insertBefore(node1, node2) {
-    node2.prev = node1.prev;
-    node2.next = node1;
-    node1.prev.next = node2;
-    node1.prev = node2;
+  insertBefore(targetNode, newNode) {
+    if (!targetNode) return false;
+
+    if (targetNode === this.head) {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    } else {
+      newNode.next = targetNode;
+      targetNode.prev.next = newNode;
+      newNode.prev = targetNode.prev;
+      targetNode.prev = newNode;
+    }
     this.size++;
+
     return true;
-
-    // const precursor = node1.prev;
-    // node2.next = node1;
-    // precursor.next = node2;
-    // node1.prev = node2;
-    // node2.prev = precursor;
-    // this.tail.prev = node1;
-    // this.size++;
-
-    // const node = new Node(data);
-    // let isInserted = false;
-    // if (target === null) {
-    //   if (!this.head) {
-    //     this.head = node;
-    //     this.tail = node;
-    //   } else {
-    //     this.tail.next = node;
-    //     node.prev = this.tail;
-    //     this.tail = node;
-    //   }
-    //   isInserted = true;
-    // } else if (this.head.data === target) {
-    //   node.next = this.head;
-    //   this.head.prev = node;
-    //   this.head = node;
-    //   isInserted = true;
-    // } else if (this.tail.data === target) {
-    //   node.next = this.tail;
-    //   this.tail.prev.next = node;
-    //   node.prev = this.tail.prev;
-    //   this.tail.prev = node;
-    //   isInserted = true;
-    // } else {
-    //   let curr = this.head;
-    //   while (curr && curr.data !== target) {
-    //     curr = curr.next;
-    //   }
-    //   if (curr) {
-    //     node.next = curr;
-    //     curr.prev.next = node;
-    //     node.prev = curr.prev;
-    //     curr.prev = node;
-    //     isInserted = true;
-    //   }
-    // }
-    // return isInserted;
   }
+
   /**
    * 删除链表头部节点
    *
    * @memberof DoublyLinkedList
    */
   removeHead() {
-    this.remove(this.head.next);
-
-    // if (this.size === 0) return;
-    // const successor = this.head.next.next;
-    // this.head.next = successor;
-    // successor.prev = this.head;
-    // this.size--;
-
-    // if (!this.head) return false;
-    // if (!this.head.next) {
-    //   this.head = null;
-    //   this.tail = null;
-    // } else {
-    //   this.head = this.head.next;
-    //   this.head.prev = null;
-    // }
-    // return true;
+    this.removeAt(0);
   }
+
   /**
    * 删除链表尾部节点
    *
    * @memberof DoublyLinkedList
    */
   removeTail() {
-    this.remove(this.tail.prev)
-
-    // if (this.size === 0) return;
-    // const precursor = this.tail.prev.prev;
-    // precursor.next = this.tail;
-    // this.tail.prev = precursor;
-    // this.size--;
-
-    // if (!this.tail) return false;
-    // if (!this.tail.prev) {
-    //   this.head = null;
-    //   this.tail = null;
-    // } else {
-    //   this.tail = this.tail.prev;
-    //   this.tail.next = null;
-    // }
-    // return true;
+    this.removeAt(this.size - 1);
   }
+
+  /**
+   * 删除任意位置节点
+   *
+   * @param {Number} index 删除位置
+   * @memberof DoublyLinkedList
+   */
+  removeAt(index) {
+    if (index < 0 || index >= this.size) return false;
+
+    if (index === 0) {
+      this.head = this.head.next;
+      if (this.head) {
+        this.head.prev = null;
+      } else {
+        this.tail = null;
+      }
+    } else if (index === this.size - 1) {
+      this.tail = this.tail.prev;
+      if (this.tail) {
+        this.tail.next = null;
+      } else {
+        this.head = null;
+      }
+    } else {
+      let curNode;
+      if (index < this.size - index) {
+        curNode = this.head;
+        for (let i = 0; i < index; i++) {
+          curNode = curNode.next;
+        }
+      } else {
+        curNode = this.tail;
+        for (let i = 0; i < this.size - index - 1; i++) {
+          curNode = curNode.prev;
+        }
+      }
+      curNode.prev.next = curNode.next;
+      curNode.next.prev = curNode.prev;
+    }
+    this.size--;
+
+    return true;
+  }
+
+  /**
+   * 删除值等于指定值的节点
+   *
+   * @param {*} val 节点值
+   * @memberof DoublyLinkedList
+   */
+  removeByVal(val) {
+    if (this.size === 0) return false;
+
+    let isDeleted = false;
+    while (this.head && this.head.val === val) {
+      this.head = this.head.next;
+      this.size--;
+      isDeleted = true;
+      if (this.size === 0) {
+        this.tail = null;
+      } else {
+        this.head.prev = null;
+      }
+    }
+    while (this.tail && this.tail.val === val) {
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+      this.size--;
+      isDeleted = true;
+      if (this.size === 0) {
+        this.head = null;
+      } else {
+        this.tail.next = null;
+      }
+    }
+
+    let curNode = this.head;
+    while (curNode) {
+      if (curNode.val === val) {
+        curNode.prev.next = curNode.next;
+        curNode.next.prev = curNode.prev;
+        curNode = curNode.next;
+        this.size--;
+        isDeleted = true;
+      } else {
+        curNode = curNode.next;
+      }
+    }
+
+    return isDeleted;
+  }
+
   /**
    * 删除指定节点
    *
-   * @param {*} data
+   * @param {*} targetNode 目标节点
    * @memberof DoublyLinkedList
    */
-  remove(node) {
-    if (this.size === 0) return false;
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
-    this.size--;
-    return true;
-    // if (!this.head) return false;
-    // let isDeleted = false;
-    // let curr = this.head;
-    // while (curr) {
-    //   if (curr.data === data) {
-    //     if (this.head === curr) {
-    //       this.head = this.head.next;
-    //       if (!this.head) {
-    //         this.tail = null;
-    //       } else {
-    //         this.head.prev = null;
-    //       }
-    //     } else if (this.tail === curr) {
-    //       this.tail = this.tail.prev;
-    //       this.tail.next = null;
-    //     } else {
-    //       curr.prev.next = curr.next;
-    //       curr.next.prev = curr.prev;
-    //     }
-    //     isDeleted = true;
-    //   }
-    //   curr = curr.next;
-    // }
-    // return isDeleted;
+  remove(targetNode) {
+    if (!targetNode || this.size === 0) return false;
 
-    // if (this.head.data === data) {
-    //   this.head = this.head.next;
-    //   if (!this.head) {
-    //     this.tail = null;
-    //   } else {
-    //     this.head.prev = null;
-    //   }
-    // } else if (this.tail.data === data) {
-    //   this.tail = this.tail.prev;
-    //   this.tail.next = null;
-    // } else {
-    //   let curr = this.head;
-    //   while (curr) {
-    //     if (curr.data === data) {
-    //       curr.prev.next = curr.next;
-    //       curr.next.prev = curr.prev;
-    //     }
-    //     else {
-    //       curr = curr.next;
-    //     }
-    //   }
-    // }
+    if (targetNode === this.head) {
+      this.head = this.head.next;
+      if (this.size === 0) {
+        this.tail = null;
+      } else {
+        this.head.prev = null;
+      }
+    } else if (targetNode === this.tail) {
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    } else {
+      targetNode.prev.next = targetNode.next;
+      targetNode.next.prev = targetNode.prev;
+    }
+    this.size--;
+
+    return true;
   }
-  
+
   toString() {
-    let curr = this.head.next;
+    let curNode = this.head;
     let str = 'head <=> ';
-    while (curr && curr !== this.tail) {
-      str += curr.data + ' <=> ';
-      curr = curr.next;
+    while (curNode) {
+      str += curNode.val + ' <=> ';
+      curNode = curNode.next;
     }
     str += 'tail';
     return str;
