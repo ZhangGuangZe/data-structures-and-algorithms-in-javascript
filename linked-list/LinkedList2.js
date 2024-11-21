@@ -14,7 +14,7 @@ export default class LinkedList {
    * @memberof LinkedList
    */
   get(index) {
-    if (index < 0 || index >= this.size) return -1;
+    if (index < 0 || index >= this.size) return null;
 
     let curNode = this.head.next;
     for (let i = 0; i < index; i++) {

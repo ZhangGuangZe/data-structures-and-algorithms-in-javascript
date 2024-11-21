@@ -1,4 +1,4 @@
-import LinkedList from '../LinkedList.js'
+import LinkedList from '../LinkedList2.js'
 
 const list = new LinkedList();
 console.log('从链表头部插入节点1');

@@ -14,7 +14,7 @@ export default class LinkedList {
    * @memberof LinkedList
    */
   get(index) {
-    if (index < 0 || index >= this.size) return -1;
+    if (index < 0 || index >= this.size) return null;
 
     let curNode = this.head;
     for (let i = 0; i < index; i++) {
@@ -100,10 +100,7 @@ export default class LinkedList {
       newNode.next = this.head;
       this.head = newNode;
     } else { // 其他位置插入
-      let curNode = this.head;
-      for (let i = 0; i < index - 1; i++) {
-        curNode = curNode.next;
-      }
+      const curNode = this.get(index - 1);
       newNode.next = curNode.next;
       curNode.next = newNode;
     }
@@ -163,10 +160,7 @@ export default class LinkedList {
     if (index === 0) { // 删除头节点
       this.head = this.head.next;
     } else { // 删除其他节点
-      let curNode = this.head;
-      for (let i = 0; i < index - 1; i++) {
-        curNode = curNode.next;
-      }
+      const curNode = this.get(index - 1);
       curNode.next = curNode.next.next;
     }
     this.size--;
