@@ -15,17 +15,17 @@ export default class DoublyLinkedList {
    * @memberof DoublyLinkedList
    */
   get(index) {
-    if (index < 0 || index >= this.size) return -1;
+    if (index < 0 || index >= this.size) return null;
 
     let curNode;
-    if (index < this.size - index) {
+    if (index < this.size / 2) {
       curNode = this.head;
       for (let i = 0; i < index; i++) {
         curNode = curNode.next;
       }
     } else {
       curNode = this.tail;
-      for (let i = 0; i < this.size - index - 1; i++) {
+      for (let i = this.size - 1; i > index; i--) {
         curNode = curNode.prev;
       }
     }
@@ -103,18 +103,7 @@ export default class DoublyLinkedList {
         this.tail = newNode;
       }
     } else {
-      let curNode;
-      if (index < this.size - index) {
-        curNode = this.head;
-        for (let i = 0; i < index; i++) {
-          curNode = curNode.next;
-        }
-      } else {
-        curNode = this.tail;
-        for (let i = 0; i < this.size - index - 1; i++) {
-          curNode = curNode.prev;
-        }
-      }
+      const curNode = this.get(index);
       newNode.next = curNode;
       curNode.prev.next = newNode;
       newNode.prev = curNode.prev;
@@ -192,18 +181,7 @@ export default class DoublyLinkedList {
         this.head = null;
       }
     } else {
-      let curNode;
-      if (index < this.size - index) {
-        curNode = this.head;
-        for (let i = 0; i < index; i++) {
-          curNode = curNode.next;
-        }
-      } else {
-        curNode = this.tail;
-        for (let i = 0; i < this.size - index - 1; i++) {
-          curNode = curNode.prev;
-        }
-      }
+      const curNode = this.get(index);
       curNode.prev.next = curNode.next;
       curNode.next.prev = curNode.prev;
     }
@@ -290,9 +268,9 @@ export default class DoublyLinkedList {
 
   toString() {
     let curNode = this.head;
-    let str = 'head <=> ';
+    let str = 'head <-> ';
     while (curNode) {
-      str += curNode.val + ' <=> ';
+      str += curNode.val + ' <-> ';
       curNode = curNode.next;
     }
     str += 'tail';

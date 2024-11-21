@@ -17,17 +17,17 @@ export default class DoublyLinkedList {
    * @memberof DoublyLinkedList
    */
   get(index) {
-    if (index < 0 || index >= this.size) return -1;
+    if (index < 0 || index >= this.size) return null;
 
     let curNode;
-    if (index < this.size - index - 1) {
-      curNode = this.head;
-      for (let i = 0; i < index + 1; i++) {
+    if (index < this.size / 2) {
+      curNode = this.head.next;
+      for (let i = 0; i < index; i++) {
         curNode = curNode.next;
       }
     } else {
-      curNode = this.tail;
-      for (let i = 0; i < this.size - index; i++) {
+      curNode = this.tail.prev;
+      for (let i = this.size - 1; i > index; i--) {
         curNode = curNode.prev;
       }
     }
@@ -87,7 +87,7 @@ export default class DoublyLinkedList {
 
     let precursor;
     let successor;
-    if (index < this.size - index) {
+    if (index < this.size / 2) {
       precursor = this.head;
       for (let i = 0; i < index; i++) {
         precursor = precursor.next;
@@ -95,7 +95,7 @@ export default class DoublyLinkedList {
       successor = precursor.next;
     } else {
       successor = this.tail;
-      for (let i = 0; i < this.size - index; i++) {
+      for (let i = this.size; i > index; i--) {
         successor = successor.prev;
       }
       precursor = successor.prev;
@@ -157,7 +157,7 @@ export default class DoublyLinkedList {
 
     let precursor;
     let successor;
-    if (index < this.size - index) {
+    if (index < this.size / 2) {
       precursor = this.head;
       for (let i = 0; i < index; i++) {
         precursor = precursor.next;
@@ -165,7 +165,7 @@ export default class DoublyLinkedList {
       successor = precursor.next.next;
     } else {
       successor = this.tail;
-      for (let i = 0; i < this.size - index - 1; i++) {
+      for (let i = this.size - 1; i > index; i--) {
         successor = successor.prev;
       }
       precursor = successor.prev.prev;
@@ -221,9 +221,9 @@ export default class DoublyLinkedList {
 
   toString() {
     let curr = this.head.next;
-    let str = 'head <=> ';
+    let str = 'head <-> ';
     while (curr && curr !== this.tail) {
-      str += curr.val + ' <=> ';
+      str += curr.val + ' <-> ';
       curr = curr.next;
     }
     str += 'tail';
