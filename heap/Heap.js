@@ -117,7 +117,7 @@ export default class Heap {
       const left = this.getLeftIndex(i);
       const right = this.getRightIndex(i);
       if (left <= this.size && this.comparator(this.container[i], this.container[left]) > 0) pos = left;
-      if (right <= this.size && this.comparator(this.container[pos], this.container[right] > 0)) pos = right;
+      if (right <= this.size && this.comparator(this.container[pos], this.container[right]) > 0) pos = right;
       if (pos === i) break;
       this.swap(this.container, i, pos);
       i = pos;
