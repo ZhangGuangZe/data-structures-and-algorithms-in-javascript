@@ -187,7 +187,7 @@ export default class LinkedList {
 
     // 删除其他节点
     let curNode = this.head;
-    while (curNode.next) {
+    while (curNode && curNode.next) {
       if (curNode.next.val === val) {
         curNode.next = curNode.next.next;
         this.size--;

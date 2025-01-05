@@ -57,3 +57,6 @@ console.log('\n删除值为3的节点')
 console.log(list.toString()); // => head -> 3 -> 2 -> 2 -> 3 -> 2 -> 2 -> 3 -> null
 list.removeByVal(3);
 console.log(list.toString()); // => head -> 2 -> 2 -> 2 -> 2 -> null
+console.log('\n删除值为2的节点')
+list.removeByVal(2);
+console.log(list.toString()); // => head -> null
