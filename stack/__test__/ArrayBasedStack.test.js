@@ -1,0 +1,25 @@
+import ArrayBasedStack from '../ArrayBasedStack.js';
+const stack = new ArrayBasedStack(2);
+
+console.log('将0入栈');
+stack.push(0);
+console.log('获取栈顶元素:', stack.peek());
+console.log('将1入栈');
+stack.push(1);
+console.log('是否为满栈', stack.isFull());
+console.log('获取栈元素数量:', stack.length);
+console.log('获取栈顶元素:', stack.peek());
+console.log('是否为空栈', stack.isEmpty());
+console.log('将2入栈');
+stack.push(2);
+console.log('将3入栈');
+stack.push(3);
+console.log('将4入栈');
+stack.push(4);
+console.log('获取栈顶元素:', stack.peek());
+console.log('是否为空栈', stack.isEmpty());
+console.log('将1出栈', stack.pop());
+console.log('获取栈顶元素:', stack.peek());
+console.log('将0出栈', stack.pop());
+console.log('是否为空栈', stack.isEmpty());
+console.log('获取栈元素数量:', stack.length);

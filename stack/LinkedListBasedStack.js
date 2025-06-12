@@ -1,48 +1,53 @@
-import { Node } from '../linked-list/Node.js';
-export class LinkedListBasedStack {
+import Node from '../linked-list/Node.js';
+export default class LinkedListBasedStack {
   constructor() {
-    this.top = 0;
+    this.size = 0;
     this.head = null;
   }
+
   /**
    * 获取栈中元素数量
    */
-   size() {
-    return this.top;
+  get length() {
+    return this.size;
   }
-  /**
-   * 获取栈顶元素
-   */
-  peek() {
-    return this.head.data;
-  }
-  /**
-   * 判断栈是否为空
-   */
-  isEmpty() {
-    return this.top === 0;
-  }
+
   /**
    * 压入数据
-   *
-   * @param {*} data 数据
+   * @param {*} val 数据
    */
-  push(data) {
-    const newNode = new Node(data);
+  push(val) {
+    const newNode = new Node(val);
     if (this.head) newNode.next = this.head;
     this.head = newNode;
-    this.top++;
+    this.size++;
   }
+
   /**
    * 弹出元素
-   *
-   * @returns
+   * @returns {*}
    */
   pop() {
     if (this.isEmpty()) return;
     let val = this.peek();
     this.head = this.head.next;
-    this.top--;
+    this.size--;
     return val;
+  }
+
+  /**
+   * 获取栈顶元素
+   * @returns {*}
+   */
+  peek() {
+    return this.head?.val;
+  }
+
+  /**
+   * 栈是否为空
+   * @returns {boolean}
+   */
+  isEmpty() {
+    return this.size === 0;
   }
 }

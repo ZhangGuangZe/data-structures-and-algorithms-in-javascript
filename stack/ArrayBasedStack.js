@@ -1,46 +1,57 @@
-export class ArrayBasedStack {
-  constructor(cap = 2) {
-    this.top = 0; // 栈中元素数量
-    this.items = new Array(cap); // 存储栈元素的数组
-    this.max = cap; // 栈的容量
+export default class ArrayBasedStack {
+  constructor(capacity) {
+    this.top = 0;
+    this.items = new Array(capacity);
+    this.size = capacity;
   }
+
   /**
    * 获取栈中元素数量
+   * @returns {number}
    */
-  size() {
+  get length() {
     return this.top;
   }
-  /**
-   * 获取栈顶元素
-   */
-  peek() {
-    return this.items[this.top - 1];
-  }
-  isFull() {
-    return this.top === this.max;
-  }
-  /**
-   * 判断栈是否为空
-   */
-  isEmpty() {
-    return this.top === 0;
-  }
+
   /**
    * 压入数据
-   *
-   * @param {*} data 数据
+   * @param {*} val 数据
    */
-  push(data) {
+  push(val) {
     if (this.isFull()) return;
-    this.items[this.top++] = data;
+    this.items[this.top++] = val;
   }
+
   /**
    * 弹出元素
-   *
-   * @returns
+   * @returns {*}
    */
   pop() {
     if (this.isEmpty()) return;
     return this.items[--this.top];
+  }
+
+  /**
+   * 获取栈顶元素
+   * @returns {*}
+   */
+  peek() {
+    return this.items[this.top - 1];
+  }
+
+  /**
+   * 栈是否为空
+   * @returns {boolean}
+   */
+  isEmpty() {
+    return this.top === 0;
+  }
+
+  /**
+   * 栈是否已满
+   * @returns {boolean}
+   */
+  isFull() {
+    return this.top === this.size;
   }
 }
