@@ -1,4 +1,4 @@
-import { Node } from '/doubly-linked-list/Node.js';
+import Node from '../doubly-linked-list/Node.js'
 
 export default class DoublyEndedQueue {
   constructor() {
@@ -6,40 +6,58 @@ export default class DoublyEndedQueue {
     this.tail = null;
     this.size = 0;
   }
-  peekFirst() {
-    return this.head && this.head.data;
+
+  /**
+   * 获取队列元素数量
+   * @returns {number}
+   */
+  get length() {
+    return this.size;
   }
-  peekLast() {
-    return this.tail && this.tail.data;
-  }
-  push(data) {
-    const node = new Node(data);
-    if (!this.tail) {
-      this.head = node;
-      this.tail = node;
+
+  /**
+   * 队列后端入队
+   * @param {*} val 
+   */
+  push(val) {
+    const newNode = new Node(val);
+    if (this.isEmpty()) {
+      this.head = newNode;
+      this.tail = newNode;
     } else {
-      this.tail.next = node;
-      node.prev = this.tail;
-      this.tail = node;
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
     }
     this.size++;
   }
-  unshift(data) {
-    const node = new Node(data);
-    if (!this.head) {
-      this.head = node;
-      this.tail = node;
+
+  /**
+   * 队列前端入队
+   * @param {*} val 
+   */
+  unshift(val) {
+    const newNode = new Node(val);
+    if (this.isEmpty()) {
+      this.head = newNode;
+      this.tail = newNode;
     } else {
-      node.next = this.head;
-      this.head.prev = node;
+      newNode.next = this.head;
+      this.head.prev = newNode;
       this.head = this.head.prev;
     }
     this.size++;
   }
+
+  /**
+   * 队列后端出队
+   * @returns {*}
+   */
   pop() {
-    if (!this.tail) return;
-    const val = this.tail.data;
-    if (this.head === this.tail) {
+    if (this.isEmpty()) return;
+  
+    const val = this.tail.val;
+    if (this.head === this.tail) { // 链表只有一个节点
       this.head = null;
       this.tail = null;
     } else {
@@ -49,10 +67,16 @@ export default class DoublyEndedQueue {
     this.size--;
     return val;
   }
+
+  /**
+   * 队列前端出队
+   * @returns {*}
+   */
   shift() {
-    if (!this.head) return;
-    const val = this.head.data;
-    if (this.head === this.tail) {
+    if (this.isEmpty()) return;
+  
+    const val = this.head.val;
+    if (this.head === this.tail) { // 链表只有一个节点
       this.head = null;
       this.tail = null;
     } else {
@@ -61,5 +85,29 @@ export default class DoublyEndedQueue {
     }
     this.size--;
     return val;
+  }
+
+  /**
+   * 队列是否为空
+   * @returns {boolean}
+   */
+  isEmpty() {
+    return this.size === 0;
+  }
+
+  /**
+   * 获取队首元素
+   * @returns {*}
+   */
+  peekFirst() {
+    return this.head?.val;
+  }
+
+  /**
+   * 获取队尾元素
+   * @returns {*}
+   */
+  peekLast() {
+    return this.tail?.val;
   }
 }

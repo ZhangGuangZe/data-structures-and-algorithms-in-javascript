@@ -1,30 +1,58 @@
-export class ArrayBasedQueue {
+export default class ArrayBasedQueue {
   constructor(capacity) {
     this.items = new Array(capacity);
     this.size = capacity;
-    this.head = 0;
-    this.tail = 0;
+    this.front = 0;
+    this.rear = 0;
   }
-  enqueue(data) {
+
+  /**
+   * 获取队列
+   * @returns {number}
+   */
+  get length() {
+    return this.rear - this.front;
+  }
+
+  /**
+   * 入队操作
+   * @param {*} val 
+   */
+  enqueue(val) {
     if (this.isFull()) return;
-    this.items[this.tail++] = data;
+    this.items[this.rear++] = val;
   }
+
+  /**
+   * 出队操作
+   * @returns {*}
+   */
   dequeue() {
     if (this.isEmpty()) return;
-    return this.items[this.head++];
+    return this.items[this.front++];
   }
+
+  /**
+   * 队列是否为空
+   * @returns {boolean}
+   */
   isEmpty() {
-    return this.head === this.tail;
+    return this.front === this.rear;
   }
+
+  /**
+   * 队列是否已满
+   * @returns {boolean}
+   */
   isFull() {
-    return this.tail === this.size;
+    return this.rear === this.size;
   }
+
   toString() {
-    let str = 'head -> ';
-    for (let i = this.head; i < this.tail; i++) {
-      str += this.items[i] + ' ';
+    const arr = [];
+    for (let i = this.front; i < this.rear; i++) {
+      arr.push(this.items[i]);
     }
-    str += '<- tail';
-    return str;
+    return `[${arr.join(", ")}]`;
   }
 }
