@@ -1,12 +1,12 @@
 export default function quickSortHoare(arr) {
-  const sort = (lo, hi) => {
+  const sort = (arr, lo, hi) => {
     if (lo >= hi) return;
 
     const pivotIndex = partition(arr, lo, hi); // 切分
-    sort(lo, pivotIndex); // 将左半部分排序
-    sort(pivotIndex + 1, hi); // 将右半部分排序
+    sort(arr, lo, pivotIndex); // 将左半部分排序
+    sort(arr, pivotIndex + 1, hi); // 将右半部分排序
   };
-  sort(0, arr.length - 1);
+  sort(arr, 0, arr.length - 1);
 
   return arr;
 }

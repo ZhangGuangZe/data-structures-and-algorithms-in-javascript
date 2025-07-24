@@ -1,5 +1,5 @@
 export default function quickSort3Way(arr) {
-  const sort = (lo, hi) => {
+  const sort = (arr, lo, hi) => {
     if (lo >= hi) return;
 
     const pivot = arr[lo]; // 选择第一个元素为主元
@@ -20,10 +20,10 @@ export default function quickSort3Way(arr) {
       }
     }
 
-    sort(lo, lt - 1);
-    sort(gt + 1, hi);
+    sort(arr, lo, lt - 1);
+    sort(arr, gt + 1, hi);
   }
 
-  sort(0, arr.length - 1);
+  sort(arr, 0, arr.length - 1);
   return arr;
 }

@@ -1,12 +1,12 @@
 export default function quickSortLomuto(arr) {
-  const sort = (lo, hi) => {
+  const sort = (arr, lo, hi) => {
     if (lo >= hi) return;
 
     const pivotIndex = partition(arr, lo, hi);
-    sort(lo, pivotIndex - 1); // 排序左子数组
-    sort(pivotIndex + 1, hi); // 排序右子数组
+    sort(arr, lo, pivotIndex - 1); // 排序左子数组
+    sort(arr, pivotIndex + 1, hi); // 排序右子数组
   };
-  sort(0, arr.length - 1);
+  sort(arr, 0, arr.length - 1);
 
   return arr;
 }
