@@ -1,0 +1,29 @@
+export default function quickSortLomuto(arr) {
+  const sort = (lo, hi) => {
+    if (lo >= hi) return;
+
+    const pivotIndex = partition(arr, lo, hi);
+    sort(lo, pivotIndex - 1); // 排序左子数组
+    sort(pivotIndex + 1, hi); // 排序右子数组
+  };
+  sort(0, arr.length - 1);
+
+  return arr;
+}
+
+function partition(arr, lo, hi) {
+  const pivot = arr[hi]; // 选择最后一个元素作为主元
+  let i = lo;
+
+  for (let j = lo; j < hi; j++) {
+    if (arr[j] <= pivot) {
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      i++;
+    }
+  }
+
+  // 将主元放到正确的位置
+  [arr[i], arr[hi]] = [arr[hi], arr[i]];
+
+  return i;
+}
