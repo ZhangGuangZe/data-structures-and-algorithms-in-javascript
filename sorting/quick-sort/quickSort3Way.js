@@ -1,3 +1,8 @@
+/**
+ * 三向切分快速排序算法
+ * @param {*} arr 未排序数组
+ * @returns 已排序数组
+ */
 export default function quickSort3Way(arr) {
   const sort = (arr, lo, hi) => {
     if (lo >= hi) return;

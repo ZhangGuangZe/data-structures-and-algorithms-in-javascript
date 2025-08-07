@@ -1,3 +1,8 @@
+/**
+ * Lomuto 快速排序算法
+ * @param {*} arr 未排序数组
+ * @returns 已排序数组
+ */
 export default function quickSortLomuto(arr) {
   const sort = (arr, lo, hi) => {
     if (lo >= hi) return;
