@@ -3,7 +3,7 @@
  * @param {*} arr 未排序数组
  * @returns 已排序数组
  */
-export default function quickSortHoare(arr) {
+export default function quickSortHoarePartition(arr) {
   const sort = (arr, lo, hi) => {
     if (lo >= hi) return;
 

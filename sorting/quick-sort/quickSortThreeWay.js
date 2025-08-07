@@ -3,7 +3,7 @@
  * @param {*} arr 未排序数组
  * @returns 已排序数组
  */
-export default function quickSort3Way(arr) {
+export default function quickSortThreeWay(arr) {
   const sort = (arr, lo, hi) => {
     if (lo >= hi) return;
 
