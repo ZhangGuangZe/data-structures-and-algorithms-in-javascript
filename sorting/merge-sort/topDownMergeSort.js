@@ -18,17 +18,20 @@ export default function topDownMergeSort(arr) {
 }
 
 function merge(arr, lo, mid, hi, temp) {
-  let i = lo;
-  let j = mid + 1;
-  let k = 0;
+  let i = lo; // 左子数组起始下标
+  let j = mid + 1; // 右子数组起始下标
+  let k = 0; // 临时数组的下标
 
+  // 比较左右子数组元素，将较小值放入 temp
   while (i <= mid && j <= hi) {
     temp[k++] = arr[i] < arr[j] ? arr[i++] : arr[j++];
   }
 
+  // 将左右子数组剩余元素放入 temp
   while (i <= mid) temp[k++] = arr[i++];
   while (j <= hi) temp[k++] = arr[j++];
 
+  // 将临时数组排序好的元素复制回原数组
   for (let i = lo; i <= hi; i++) {
     arr[i] = temp[i - lo];
   }
